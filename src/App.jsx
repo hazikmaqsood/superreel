@@ -1,223 +1,246 @@
-import React, { useState, useRef } from 'react';
-import { 
-  Sparkles, 
-  ArrowRight, 
-  CheckCircle2, 
-  Volume2, 
-  VolumeX, 
-  Play, 
-  Heart, 
-  Zap, 
-  Smartphone, 
-  ShoppingBag,
-  Github,
-  Mail,
-  Check
-} from 'lucide-react';
+import React from 'react';
 
 export default function App() {
-  const [email, setEmail] = useState('');
-  const [submitted, setSubmitted] = useState(false);
-  const [isMuted, setIsMuted] = useState(true);
-  const [isLiked, setIsLiked] = useState(false);
-  const videoRef = useRef(null);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (email.trim()) {
-      setSubmitted(true);
-      setEmail('');
-    }
-  };
-
-  const toggleMute = () => {
-    if (videoRef.current) {
-      videoRef.current.muted = !isMuted;
-      setIsMuted(!isMuted);
-    }
-  };
-
   return (
-    <div className="min-h-screen bg-[#0F111A] text-slate-100 flex flex-col font-['Plus_Jakarta_Sans',sans-serif] relative overflow-hidden selection:bg-purple-500 selection:text-white">
-      
-      {/* Background Radial Ambient Glows */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-purple-600/15 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute bottom-0 right-0 w-[600px] h-[400px] bg-pink-600/10 rounded-full blur-[120px] pointer-events-none" />
+    <div className="sr-container">
+      {/* Embedded CSS Animations & Custom Styling */}
+      <style>{`
+        body {
+          margin: 0;
+          overflow-x: hidden;
+          background-color: #000000;
+          font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
 
-      {/* Header */}
-      <header className="w-full max-w-7xl mx-auto px-6 py-6 flex items-center justify-between z-10">
-        <div className="flex items-center gap-3">
-          <img 
-            src="/assets/Horizontal Logo_White.png" 
-            alt="SuperReel" 
-            className="h-8 w-auto object-contain"
-            onError={(e) => { e.target.style.display = 'none'; }}
-          />
-          <span className="font-extrabold text-2xl tracking-tight text-white">Super<span className="text-purple-400">Reel</span></span>
-        </div>
+        @keyframes sr-fadeUp {
+          from { opacity: 0; transform: translateY(18px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
 
-        <a
-          href="https://github.com/hazikmaqsood/superreel"
-          target="_blank"
-          rel="noreferrer"
-          className="flex items-center gap-2 px-4 py-2 rounded-full bg-slate-900 border border-slate-800 text-xs font-semibold text-slate-300 hover:text-white hover:border-slate-700 transition"
-        >
-          <Github className="w-4 h-4" /> GitHub
-        </a>
-      </header>
+        @keyframes sr-blurIn {
+          from { opacity: 0; filter: blur(10px); transform: translateY(12px); }
+          to { opacity: 1; filter: blur(0); transform: translateY(0); }
+        }
 
-      {/* Main Content Area */}
-      <main className="flex-1 max-w-7xl mx-auto px-6 py-12 lg:py-20 flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16 z-10">
-        
-        {/* Left Text & Waitlist Column */}
-        <div className="flex-1 text-center lg:text-left max-w-2xl">
-          
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-500/10 border border-purple-500/25 text-purple-300 text-xs font-bold mb-6 backdrop-blur-md">
-            <Sparkles className="w-3.5 h-3.5 text-purple-400" />
-            <span>Short-Video Reel SDK • Launching Soon</span>
+        @keyframes sr-pulse {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.3; }
+        }
+
+        @keyframes sr-ring {
+          to { transform: rotate(360deg); }
+        }
+
+        @keyframes sr-beam {
+          0% { transform: translateY(8%); opacity: 0; }
+          15% { opacity: 0.55; }
+          85% { opacity: 0.35; }
+          100% { transform: translateY(-70%); opacity: 0; }
+        }
+
+        @keyframes sr-float {
+          0%, 100% { transform: translate(0, 0); opacity: 0.15; }
+          50% { transform: translate(6px, -22px); opacity: 0.55; }
+        }
+
+        @keyframes sr-sweep {
+          0% { transform: translateX(-130%) rotate(6deg); opacity: 0; }
+          6% { opacity: 0.18; }
+          22% { opacity: 0; }
+          100% { opacity: 0; }
+        }
+
+        @keyframes sr-drift {
+          0%, 100% { transform: translate(-2%, -1%) scale(1); }
+          50% { transform: translate(2%, 2%) scale(1.06); }
+        }
+
+        .social-link {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 38px;
+          height: 38px;
+          border-radius: 50%;
+          border: 1px solid rgba(255, 255, 255, 0.15);
+          color: #d1d5db;
+          transition: transform 0.25s, color 0.25s, box-shadow 0.25s;
+        }
+
+        .social-link:hover {
+          transform: translateY(-3px) scale(1.05);
+          color: #f7931e;
+          box-shadow: 0 0 14px rgba(247, 147, 30, 0.3);
+        }
+
+        .app-store-btn {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          min-width: 178px;
+          padding: 11px 20px;
+          border-radius: 14px;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          backdrop-filter: blur(8px);
+          cursor: pointer;
+          opacity: 0.85;
+          transition: opacity 0.25s, border-color 0.25s, box-shadow 0.25s;
+        }
+
+        .app-store-btn:hover {
+          border-color: rgba(247, 147, 30, 0.55);
+          box-shadow: 0 0 18px rgba(247, 147, 30, 0.2);
+          opacity: 1;
+        }
+      `}</style>
+
+      {/* Main Wrapper */}
+      <div 
+        style={{
+          position: 'relative',
+          minHeight: '100vh',
+          width: '100%',
+          overflow: 'hidden',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justify: 'center',
+          isolation: 'isolate',
+          '--sr-orange': '#f7931e',
+          '--sr-red': '#ee3f56',
+          '--sr-magenta': '#c22e9e',
+          '--sr-purple': '#7b5ce0',
+          backgroundColor: '#000000'
+        }}
+      >
+        {/* Ambient Gradient Backgrounds */}
+        <div style={{ position: 'absolute', inset: '-10%', background: 'radial-gradient(closest-side, color-mix(in srgb, var(--sr-purple) 55%, transparent) 0%, transparent 70%)', opacity: 0.85, animation: 'sr-drift 26s ease-in-out infinite', zIndex: 0 }} />
+        <div style={{ position: 'absolute', top: '-15%', left: '50%', width: '120%', height: '70%', transform: 'translateX(-50%)', background: 'radial-gradient(ellipse at center, color-mix(in srgb, var(--sr-magenta) 45%, transparent) 0%, transparent 60%)', opacity: 0.5, zIndex: 0, animation: 'sr-drift 32s ease-in-out infinite reverse' }} />
+        <div style={{ position: 'absolute', bottom: '-10%', right: '-10%', width: '80%', height: '60%', background: 'radial-gradient(ellipse at center, color-mix(in srgb, var(--sr-orange) 40%, transparent) 0%, transparent 65%)', opacity: 0.35, zIndex: 0, animation: 'sr-drift 38s ease-in-out infinite' }} />
+
+        {/* Ambient Beams */}
+        <div style={{ position: 'absolute', bottom: 0, left: '12%', width: '70px', height: '100%', background: 'linear-gradient(to top, transparent, color-mix(in srgb, var(--sr-orange) 65%, transparent) 40%, transparent)', filter: 'blur(30px)', opacity: 0.22, animation: 'sr-beam 14s linear infinite', animationDelay: '-2s', zIndex: 0 }} />
+        <div style={{ position: 'absolute', bottom: 0, left: '38%', width: '90px', height: '100%', background: 'linear-gradient(to top, transparent, color-mix(in srgb, var(--sr-red) 60%, transparent) 35%, transparent)', filter: 'blur(36px)', opacity: 0.16, animation: 'sr-beam 18s linear infinite', animationDelay: '-6s', zIndex: 0 }} />
+        <div style={{ position: 'absolute', bottom: 0, left: '64%', width: '60px', height: '100%', background: 'linear-gradient(to top, transparent, color-mix(in srgb, var(--sr-magenta) 65%, transparent) 40%, transparent)', filter: 'blur(28px)', opacity: 0.2, animation: 'sr-beam 16s linear infinite', animationDelay: '-10s', zIndex: 0 }} />
+        <div style={{ position: 'absolute', bottom: 0, left: '84%', width: '50px', height: '100%', background: 'linear-gradient(to top, transparent, color-mix(in srgb, var(--sr-purple) 65%, transparent) 40%, transparent)', filter: 'blur(26px)', opacity: 0.18, animation: 'sr-beam 20s linear infinite', animationDelay: '-14s', zIndex: 0 }} />
+
+        {/* Floating Particles */}
+        <div style={{ position: 'absolute', top: '20%', left: '18%', width: '4px', height: '4px', borderRadius: '50%', background: '#e5e7eb', animation: 'sr-float 9s ease-in-out infinite', zIndex: 0 }} />
+        <div style={{ position: 'absolute', top: '65%', left: '26%', width: '3px', height: '3px', borderRadius: '50%', background: 'var(--sr-orange)', animation: 'sr-float 11s ease-in-out infinite', animationDelay: '-3s', zIndex: 0 }} />
+        <div style={{ position: 'absolute', top: '40%', left: '74%', width: '4px', height: '4px', borderRadius: '50%', background: '#e5e7eb', animation: 'sr-float 13s ease-in-out infinite', animationDelay: '-5s', zIndex: 0 }} />
+        <div style={{ position: 'absolute', top: '78%', left: '82%', width: '3px', height: '3px', borderRadius: '50%', background: 'var(--sr-magenta)', animation: 'sr-float 10s ease-in-out infinite', animationDelay: '-1s', zIndex: 0 }} />
+        <div style={{ position: 'absolute', top: '15%', left: '60%', width: '3px', height: '3px', borderRadius: '50%', background: '#9ca3af', animation: 'sr-float 12s ease-in-out infinite', animationDelay: '-7s', zIndex: 0 }} />
+        <div style={{ position: 'absolute', top: '55%', left: '10%', width: '4px', height: '4px', borderRadius: '50%', background: 'var(--sr-purple)', animation: 'sr-float 14s ease-in-out infinite', animationDelay: '-9s', zIndex: 0 }} />
+        <div style={{ position: 'absolute', top: '30%', left: '88%', width: '3px', height: '3px', borderRadius: '50%', background: '#e5e7eb', animation: 'sr-float 10.5s ease-in-out infinite', animationDelay: '-4s', zIndex: 0 }} />
+
+        {/* Light Sweep */}
+        <div style={{ position: 'absolute', inset: 0, width: '200%', height: '200%', background: 'linear-gradient(75deg, transparent 40%, color-mix(in srgb, var(--sr-magenta) 35%, transparent) 50%, transparent 60%)', animation: 'sr-sweep 22s ease-in-out infinite', zIndex: 0, pointerEvents: 'none' }} />
+
+        {/* Overlay Grid Dots */}
+        <div style={{ position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none', opacity: 0.06, mixBlendMode: 'overlay', backgroundImage: 'radial-gradient(circle at 1px 1px, #e5e7eb 1px, transparent 0)', backgroundSize: '3px 3px' }} />
+
+        {/* Main Content Container */}
+        <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'clamp(20px, 4vw, 32px)', padding: 'clamp(32px, 8vw, 64px) 24px', maxWidth: '720px', textAlign: 'center' }}>
+
+          {/* Logo */}
+          <div style={{ position: 'relative', animation: 'sr-fadeUp 0.9s ease-out both' }}>
+            <div style={{ position: 'absolute', inset: '-40px', background: 'radial-gradient(closest-side, color-mix(in srgb, var(--sr-orange) 45%, transparent) 0%, transparent 75%)', opacity: 0.5, filter: 'blur(10px)', zIndex: -1 }} />
+            <img 
+              src="/assets/Vertical_Logo_white.png" 
+              alt="SuperReel" 
+              style={{ width: 'clamp(140px, 20vw, 190px)', height: 'auto', display: 'block' }} 
+              onError={(e) => {
+                // Fallback to text logo if image fails
+                e.target.style.display = 'none';
+              }}
+            />
           </div>
 
-          {/* Heading */}
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.15]">
-            Embed TikTok & Reel Video Feeds <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-rose-400 bg-clip-text text-transparent">Into Any Web App</span>
+          {/* Status Badge */}
+          <div style={{ position: 'relative', display: 'inline-flex', padding: '12px', borderRadius: '999px', overflow: 'hidden', marginTop: 'clamp(4px, 1vw, 10px)', animation: 'sr-fadeUp 0.9s ease-out both', animationDelay: '0.8s' }}>
+            <div style={{ position: 'relative', zIndex: 1, display: 'inline-flex', alignItems: 'center', gap: '9px', padding: '10px 22px', borderRadius: '999px', background: 'rgba(255, 255, 255, 0.06)', border: '1px solid rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(6px)' }}>
+              <span style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#f7931e', boxShadow: '0 0 8px #f7931e', animation: 'sr-pulse 2.2s ease-in-out infinite', display: 'inline-block' }} />
+              <span style={{ fontSize: '11px', letterSpacing: '0.14em', textTransform: 'uppercase', color: '#e5e7eb', fontWeight: 500 }}>WE'RE BUILDING</span>
+            </div>
+          </div>
+
+          {/* Main Heading */}
+          <h1 style={{ fontWeight: 700, fontSize: 'clamp(36px, 6.4vw, 76px)', leading: 1.06, letterSpacing: '-0.03em', color: '#ffffff', margin: 0, animation: 'sr-blurIn 1s ease-out both', animationDelay: '0.25s', maxWidth: '752px' }}>
+            Something worth watching is coming.
           </h1>
 
-          {/* Description */}
-          <p className="text-slate-400 text-base sm:text-lg mt-6 leading-relaxed">
-            SuperReel is the ultimate short-video SDK. Embed vertical reel feeds, shoppable video carousels, and story bubbles into your website with 1 line of code.
+          {/* Subtitle */}
+          <p style={{ fontSize: 'clamp(15px, 1.8vw, 18px)', lineHeight: 1.55, color: '#9ca3af', maxWidth: '460px', margin: 0, animation: 'sr-fadeUp 0.9s ease-out both', animationDelay: '0.55s' }}>
+            SuperReel is in progress.<br />
+            <i>Short stories. Big drama. Coming soon.</i>
           </p>
 
-          {/* Email Subscription Form */}
-          <div className="mt-8 max-w-md mx-auto lg:mx-0">
-            {submitted ? (
-              <div className="p-4 rounded-2xl bg-purple-950/40 border border-purple-500/30 flex items-center justify-center gap-3 text-purple-300 font-bold text-sm animate-in fade-in">
-                <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />
-                <span>You're on the early access list! We'll notify you soon.</span>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
-                <div className="relative flex-1">
-                  <Mail className="w-5 h-5 text-slate-500 absolute left-4 top-1/2 -translate-y-1/2" />
-                  <input
-                    type="email"
-                    required
-                    placeholder="Enter your work email..."
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="w-full pl-11 pr-4 py-3.5 rounded-2xl bg-slate-900/90 border border-slate-800 text-slate-100 placeholder-slate-500 text-sm focus:outline-none focus:border-purple-500 transition shadow-inner"
-                  />
-                </div>
-                <button
-                  type="submit"
-                  className="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-purple-600 via-pink-600 to-rose-500 text-white font-bold text-sm hover:opacity-95 shadow-lg shadow-purple-600/30 transition transform active:scale-95 flex items-center justify-center gap-2 shrink-0"
-                >
-                  Join Waitlist <ArrowRight className="w-4 h-4" />
-                </button>
-              </form>
-            )}
-            <p className="text-slate-500 text-xs mt-3">Join 1,200+ developers & e-commerce brands on the waitlist.</p>
-          </div>
-
-          {/* Key Feature Highlights */}
-          <div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-4 pt-8 border-t border-slate-900">
-            <div className="flex items-center gap-3 text-slate-300">
-              <div className="p-2 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400">
-                <Zap className="w-4 h-4" />
-              </div>
-              <span className="text-xs font-semibold">1-Line Integration</span>
-            </div>
-
-            <div className="flex items-center gap-3 text-slate-300">
-              <div className="p-2 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400">
-                <Smartphone className="w-4 h-4" />
-              </div>
-              <span className="text-xs font-semibold">Mobile & Gesture First</span>
-            </div>
-
-            <div className="flex items-center gap-3 text-slate-300">
-              <div className="p-2 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400">
-                <ShoppingBag className="w-4 h-4" />
-              </div>
-              <span className="text-xs font-semibold">Shoppable Video CTAs</span>
-            </div>
-          </div>
-
-        </div>
-
-        {/* Right Phone Reel Preview Frame */}
-        <div className="relative shrink-0 w-full max-w-[340px]">
-          <div className="relative h-[620px] rounded-[40px] p-3 bg-slate-900 border-4 border-slate-800 shadow-2xl shadow-purple-950/50 overflow-hidden flex flex-col justify-between">
-            
-            {/* Top Video Overlay */}
-            <div className="absolute top-0 inset-x-0 z-20 p-4 bg-gradient-to-b from-black/80 via-black/40 to-transparent flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <img 
-                  src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" 
-                  alt="SuperReel" 
-                  className="w-8 h-8 rounded-full border-2 border-purple-500 object-cover"
-                />
-                <div>
-                  <p className="text-white font-bold text-xs leading-none">SuperReel Demo</p>
-                  <p className="text-slate-300 text-[10px] mt-0.5">@superreel.io</p>
+          {/* App Stores Badges */}
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', marginTop: 'clamp(16px, 3vw, 28px)', animation: 'sr-fadeUp 0.9s ease-out both', animationDelay: '1.05s' }}>
+            <span style={{ fontSize: '11px', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#6b7280' }}>Coming soon to</span>
+            <div style={{ display: 'flex', flexWrap: 'wrap', justifyCenter: 'center', gap: '14px' }}>
+              
+              {/* App Store */}
+              <div className="app-store-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="#e5e7eb">
+                  <path d="M16.365 1.43c0 1.14-.417 2.06-1.25 2.76-.833.7-1.735 1.03-2.707.99-.058-1.08.35-2.03 1.226-2.85.833-.79 1.79-1.19 2.87-1.2.05.1.08.2.09.3zM20.7 17.24c-.39.9-.86 1.72-1.41 2.46-.75 1.01-1.36 1.71-1.83 2.09-.72.62-1.5.94-2.34.96-.6 0-1.32-.17-2.17-.52-.85-.35-1.63-.52-2.34-.52-.75 0-1.55.17-2.42.52-.87.35-1.57.53-2.11.55-.8.04-1.6-.29-2.4-.99-.51-.42-1.14-1.14-1.9-2.16-.81-1.08-1.48-2.32-2-3.74-.56-1.53-.84-3.01-.84-4.44 0-1.65.36-3.08 1.07-4.28.56-.96 1.31-1.72 2.24-2.28.93-.56 1.94-.85 3.02-.87.71 0 1.65.22 2.83.66 1.17.44 1.92.66 2.26.66.25 0 .95-.26 2.1-.77 1.09-.48 2.01-.68 2.75-.61 2.03.16 3.56 1.09 4.58 2.78-1.82 1.11-2.72 2.66-2.7 4.64.02 1.55.55 2.83 1.6 3.85.47.46 1 .82 1.6 1.07-.13.37-.27.74-.42 1.09z" />
+                </svg>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', lineHeight: 1.25 }}>
+                  <span style={{ fontSize: '13px', color: '#e5e7eb', fontWeight: 500 }}>App Store</span>
+                  <span style={{ fontSize: '10.5px', color: '#6b7280', letterSpacing: '0.03em' }}>Coming Soon</span>
                 </div>
               </div>
 
-              <button 
-                onClick={toggleMute}
-                className="p-2 rounded-full bg-black/40 backdrop-blur-md text-white border border-white/20 hover:bg-black/60 transition"
-              >
-                {isMuted ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5" />}
-              </button>
+              {/* Google Play */}
+              <div className="app-store-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="#e5e7eb">
+                  <path d="M4.2 2.6a1 1 0 0 0-.5.87v17.06a1 1 0 0 0 .5.87l9.87-9.4-9.87-9.4zm11.2 10.24 2.65-2.53 3.55 2.03c.8.46.8 1.6 0 2.06l-3.55 2.03-2.65-2.53zm0-2.68 2.65-2.53-3.55-2.03c-.8-.46-1.83.14-1.83 1.03v0zm-1.4-1.34L5.6 2.1l8.4 6.72zm0 6.16L5.6 21.9l8.4-6.72z" />
+                </svg>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', lineHeight: 1.25 }}>
+                  <span style={{ fontSize: '13px', color: '#e5e7eb', fontWeight: 500 }}>Google Play</span>
+                  <span style={{ fontSize: '10.5px', color: '#6b7280', letterSpacing: '0.03em' }}>Coming Soon</span>
+                </div>
+              </div>
+
             </div>
-
-            {/* Video Player */}
-            <video
-              ref={videoRef}
-              src="https://assets.mixkit.co/videos/preview/mixkit-vertical-view-of-a-woman-posing-41551-large.mp4"
-              autoPlay
-              loop
-              muted={isMuted}
-              playsInline
-              className="w-full h-full object-cover rounded-[28px] absolute inset-0"
-            />
-
-            {/* Right Like Button */}
-            <div className="absolute right-4 bottom-24 z-20 flex flex-col items-center gap-3">
-              <button 
-                onClick={() => setIsLiked(!isLiked)}
-                className={`p-3 rounded-full backdrop-blur-md border transition-all ${
-                  isLiked 
-                    ? 'bg-rose-500 text-white border-rose-400 scale-110' 
-                    : 'bg-black/40 text-white border-white/20 hover:bg-black/60'
-                }`}
-              >
-                <Heart className={`w-4 h-4 ${isLiked ? 'fill-current' : ''}`} />
-              </button>
-            </div>
-
-            {/* Bottom Overlay & CTA */}
-            <div className="absolute bottom-0 inset-x-0 z-20 p-4 bg-gradient-to-t from-black/90 via-black/60 to-transparent flex flex-col gap-2 rounded-b-[36px]">
-              <p className="text-white font-semibold text-xs">Transform your web app engagement with SuperReel! ✨</p>
-              <button className="w-full py-2.5 px-3 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-md">
-                <ShoppingBag className="w-3.5 h-3.5" /> Shop Featured Product
-              </button>
-            </div>
-
           </div>
+
+          {/* Social Icons */}
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', marginTop: 'clamp(8px, 2vw, 16px)', animation: 'sr-fadeUp 0.9s ease-out both', animationDelay: '1.25s' }}>
+            <span style={{ fontSize: '11px', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#6b7280' }}>Stay connected</span>
+            <div style={{ display: 'flex', gap: '10px' }}>
+              <a href="#" aria-label="Instagram" className="social-link">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
+                  <rect x="3" y="3" width="18" height="18" rx="5" />
+                  <circle cx="12" cy="12" r="4" />
+                  <circle cx="17.2" cy="6.8" r="0.6" fill="currentColor" stroke="none" />
+                </svg>
+              </a>
+
+              <a href="#" aria-label="TikTok" className="social-link">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M16.6 5.82a4.28 4.28 0 0 1-3.34-2.58h-2.62v11.72c0 1.5-1.22 2.72-2.72 2.72a2.72 2.72 0 1 1 0-5.44c.24 0 .48.03.7.08V9.5a5.44 5.44 0 0 0-.7-.05 5.44 5.44 0 1 0 5.44 5.44V9.24a6.9 6.9 0 0 0 3.24.9V7.42a4.3 4.3 0 0 1-.0-.0z" />
+                </svg>
+              </a>
+
+              <a href="#" aria-label="YouTube" className="social-link">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
+                  <rect x="2.5" y="5.5" width="19" height="13" rx="3.5" />
+                  <path d="M10.5 9.2v5.6l4.8-2.8z" fill="currentColor" stroke="none" />
+                </svg>
+              </a>
+
+              <a href="#" aria-label="Snapchat" className="social-link">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <path d="M12 3.5c2.6 0 4.4 2 4.4 4.6 0 1 0 2.3.15 3.1.25.1.9.35 1.55.15.35-.1.75.15.7.55-.05.55-.6 1.15-1.6 1.7.2.65 1 1.15 2.1 1.35.3.05.4.45.15.65-.4.35-1.05.65-1.7.8.05.25.05.5-.05.7-.25.55-1.15.55-2 .75-.5.1-.85.55-1.35 1.1-.7.75-1.6 1.6-3.35 1.6s-2.65-.85-3.35-1.6c-.5-.55-.85-1-1.35-1.1-.85-.2-1.75-.2-2-.75-.1-.2-.1-.45-.05-.7-.65-.15-1.3-.45-1.7-.8-.25-.2-.15-.6.15-.65 1.1-.2 1.9-.7 2.1-1.35-1-.55-1.55-1.15-1.6-1.7-.05-.4.35-.65.7-.55.65.2 1.3-.05 1.55-.15.15-.8.15-2.1.15-3.1 0-2.6 1.8-4.6 4.4-4.6z" />
+                </svg>
+              </a>
+            </div>
+          </div>
+
         </div>
-
-      </main>
-
-      {/* Footer */}
-      <footer className="w-full max-w-7xl mx-auto px-6 py-8 border-t border-slate-900 text-center text-xs text-slate-500 flex flex-col sm:flex-row items-center justify-between gap-4 z-10">
-        <div>&copy; {new Date().getFullYear()} SuperReel Inc. All rights reserved.</div>
-        <div className="flex items-center gap-6">
-          <a href="https://github.com/hazikmaqsood/superreel" target="_blank" rel="noreferrer" className="hover:text-slate-300 transition">GitHub</a>
-          <a href="mailto:contact@superreel.io" className="hover:text-slate-300 transition">Contact Us</a>
-        </div>
-      </footer>
-
+      </div>
     </div>
   );
 }
