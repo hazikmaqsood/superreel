@@ -239,7 +239,8 @@ export default function App() {
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', animation: 'sr-fadeUp 0.9s ease-out both', animationDelay: '1.25s' }}>
             <span style={{ fontSize: '11px', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#6b7280' }}>Stay connected</span>
             <div style={{ display: 'flex', gap: '10px' }}>
-              <a href="#" aria-label="Instagram" className="social-link">
+
+              <a href="https://www.instagram.com/superreel.fun" aria-label="Instagram" className="social-link">
                 <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
                   <rect x="3" y="3" width="18" height="18" rx="5" />
                   <circle cx="12" cy="12" r="4" />
@@ -260,11 +261,11 @@ export default function App() {
                 </svg>
               </a>
 
-              {/* <a href="#" aria-label="Snapchat" className="social-link">
+              <a href="https://snapchat.com/t/wL5z4644" aria-label="Snapchat" className="social-link">
                 <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                   <path d="M12 3.5c2.6 0 4.4 2 4.4 4.6 0 1 0 2.3.15 3.1.25.1.9.35 1.55.15.35-.1.75.15.7.55-.05.55-.6 1.15-1.6 1.7.2.65 1 1.15 2.1 1.35.3.05.4.45.15.65-.4.35-1.05.65-1.7.8.05.25.05.5-.05.7-.25.55-1.15.55-2 .75-.5.1-.85.55-1.35 1.1-.7.75-1.6 1.6-3.35 1.6s-2.65-.85-3.35-1.6c-.5-.55-.85-1-1.35-1.1-.85-.2-1.75-.2-2-.75-.1-.2-.1-.45-.05-.7-.65-.15-1.3-.45-1.7-.8-.25-.2-.15-.6.15-.65 1.1-.2 1.9-.7 2.1-1.35-1-.55-1.55-1.15-1.6-1.7-.05-.4.35-.65.7-.55.65.2 1.3-.05 1.55-.15.15-.8.15-2.1.15-3.1 0-2.6 1.8-4.6 4.4-4.6z" />
                 </svg>
-              </a> */}
+              </a>
             </div>
           </div>
 
