@@ -105,13 +105,15 @@ export default function App() {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          justify: 'center',
+          justifyContent: 'center',
+          boxSizing: 'border-box',
           isolation: 'isolate',
           '--sr-orange': '#f7931e',
           '--sr-red': '#ee3f56',
           '--sr-magenta': '#c22e9e',
           '--sr-purple': '#7b5ce0',
-          backgroundColor: '#000000'
+          backgroundColor: '#000000',
+          padding: '24px 16px'
         }}
       >
         {/* Ambient Gradient Backgrounds */}
@@ -140,8 +142,23 @@ export default function App() {
         {/* Overlay Grid Dots */}
         <div style={{ position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none', opacity: 0.06, mixBlendMode: 'overlay', backgroundImage: 'radial-gradient(circle at 1px 1px, #e5e7eb 1px, transparent 0)', backgroundSize: '3px 3px' }} />
 
-        {/* Main Content Container */}
-        <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'clamp(20px, 4vw, 32px)', padding: 'clamp(32px, 8vw, 64px) 24px', maxWidth: '720px', textAlign: 'center' }}>
+        {/* Main Content Container - Perfect Vertical & Horizontal Centering */}
+        <div 
+          style={{ 
+            position: 'relative', 
+            zIndex: 1, 
+            display: 'flex', 
+            flexDirection: 'column', 
+            alignItems: 'center', 
+            justifyContent: 'center',
+            gap: 'clamp(16px, 3vh, 28px)', 
+            maxWidth: '720px', 
+            width: '100%',
+            textAlign: 'center',
+            marginTop: 'auto',
+            marginBottom: 'auto'
+          }}
+        >
 
           {/* Logo */}
           <div style={{ position: 'relative', animation: 'sr-fadeUp 0.9s ease-out both' }}>
@@ -149,7 +166,7 @@ export default function App() {
             <img 
               src="/assets/Vertical_Logo_white.png" 
               alt="SuperReel" 
-              style={{ width: 'clamp(140px, 20vw, 190px)', height: 'auto', display: 'block' }} 
+              style={{ width: 'clamp(140px, 18vw, 180px)', height: 'auto', display: 'block' }} 
               onError={(e) => {
                 // Fallback to text logo if image fails
                 e.target.style.display = 'none';
@@ -158,7 +175,7 @@ export default function App() {
           </div>
 
           {/* Status Badge */}
-          <div style={{ position: 'relative', display: 'inline-flex', padding: '12px', borderRadius: '999px', overflow: 'hidden', marginTop: 'clamp(4px, 1vw, 10px)', animation: 'sr-fadeUp 0.9s ease-out both', animationDelay: '0.8s' }}>
+          <div style={{ position: 'relative', display: 'inline-flex', padding: '12px', borderRadius: '999px', overflow: 'hidden', animation: 'sr-fadeUp 0.9s ease-out both', animationDelay: '0.8s' }}>
             <div style={{ position: 'relative', zIndex: 1, display: 'inline-flex', alignItems: 'center', gap: '9px', padding: '10px 22px', borderRadius: '999px', background: 'rgba(255, 255, 255, 0.06)', border: '1px solid rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(6px)' }}>
               <span style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#f7931e', boxShadow: '0 0 8px #f7931e', animation: 'sr-pulse 2.2s ease-in-out infinite', display: 'inline-block' }} />
               <span style={{ fontSize: '11px', letterSpacing: '0.14em', textTransform: 'uppercase', color: '#e5e7eb', fontWeight: 500 }}>WE'RE BUILDING</span>
@@ -166,26 +183,28 @@ export default function App() {
           </div>
 
           {/* Main Heading */}
-          <h1 style={{ fontWeight: 700, fontSize: 'clamp(36px, 6.4vw, 76px)', leading: 1.06, letterSpacing: '-0.03em', color: '#ffffff', margin: 0, animation: 'sr-blurIn 1s ease-out both', animationDelay: '0.25s', maxWidth: '752px' }}>
-            Something worth watching is coming.
+          <h1 style={{ fontWeight: 700, fontSize: 'clamp(32px, 5.2vw, 70px)', lineHeight: 1.08, letterSpacing: '-0.03em', color: '#ffffff', margin: 0, animation: 'sr-blurIn 1s ease-out both', animationDelay: '0.25s', maxWidth: '650px' }}>
+            Worth the wait. Worth the watch.
           </h1>
 
           {/* Subtitle */}
-          <p style={{ fontSize: 'clamp(15px, 1.8vw, 18px)', lineHeight: 1.55, color: '#9ca3af', maxWidth: '460px', margin: 0, animation: 'sr-fadeUp 0.9s ease-out both', animationDelay: '0.55s' }}>
+          <p style={{ paddingBottom: '40px', fontSize: 'clamp(15px, 1.8vw, 18px)', lineHeight: 1.55, color: '#9ca3af', maxWidth: '460px', margin: 0, animation: 'sr-fadeUp 0.9s ease-out both', animationDelay: '0.55s' }}>
             SuperReel is in progress.<br />
             <i>Short stories. Big drama. Coming soon.</i>
           </p>
 
           {/* App Stores Badges */}
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', marginTop: 'clamp(16px, 3vw, 28px)', animation: 'sr-fadeUp 0.9s ease-out both', animationDelay: '1.05s' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', animation: 'sr-fadeUp 0.9s ease-out both', animationDelay: '1.05s' }}>
             <span style={{ fontSize: '11px', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#6b7280' }}>Coming soon to</span>
-            <div style={{ display: 'flex', flexWrap: 'wrap', justifyCenter: 'center', gap: '14px' }}>
+            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '14px' }}>
               
               {/* App Store */}
               <div className="app-store-btn">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="#e5e7eb">
-                  <path d="M16.365 1.43c0 1.14-.417 2.06-1.25 2.76-.833.7-1.735 1.03-2.707.99-.058-1.08.35-2.03 1.226-2.85.833-.79 1.79-1.19 2.87-1.2.05.1.08.2.09.3zM20.7 17.24c-.39.9-.86 1.72-1.41 2.46-.75 1.01-1.36 1.71-1.83 2.09-.72.62-1.5.94-2.34.96-.6 0-1.32-.17-2.17-.52-.85-.35-1.63-.52-2.34-.52-.75 0-1.55.17-2.42.52-.87.35-1.57.53-2.11.55-.8.04-1.6-.29-2.4-.99-.51-.42-1.14-1.14-1.9-2.16-.81-1.08-1.48-2.32-2-3.74-.56-1.53-.84-3.01-.84-4.44 0-1.65.36-3.08 1.07-4.28.56-.96 1.31-1.72 2.24-2.28.93-.56 1.94-.85 3.02-.87.71 0 1.65.22 2.83.66 1.17.44 1.92.66 2.26.66.25 0 .95-.26 2.1-.77 1.09-.48 2.01-.68 2.75-.61 2.03.16 3.56 1.09 4.58 2.78-1.82 1.11-2.72 2.66-2.7 4.64.02 1.55.55 2.83 1.6 3.85.47.46 1 .82 1.6 1.07-.13.37-.27.74-.42 1.09z" />
-                </svg>
+<svg width="20" height="20" viewBox="0 0 17 20" fill="#e5e7eb" xmlns="http://www.w3.org/2000/svg">
+  <path d="M12.6367 4.83594C13.3173 4.86294 15.2285 5.09936 16.4551 6.82031C16.3542 6.88031 14.175 8.09616 14.1992 10.625C14.2286 13.6518 16.9694 14.6588 17 14.6719C16.9778 14.7429 16.5618 16.1066 15.5557 17.5166C14.6851 18.7345 13.7821 19.9476 12.3594 19.9736C10.9621 19.9985 10.5117 19.1797 8.9131 19.1797C7.31571 19.1798 6.81571 19.948 5.49317 19.999C4.12022 20.0477 3.07387 18.6806 2.19728 17.4668C0.403518 14.984 -0.966838 10.4506 0.873057 7.39062C1.78718 5.87164 3.42071 4.90779 5.19435 4.88379C6.54225 4.85881 7.81554 5.75293 8.63966 5.75293C9.46384 5.75275 11.0109 4.67795 12.6367 4.83594Z" />
+  <path d="M12.6572 0C12.7917 1.17097 12.3004 2.34838 11.5713 3.19336C10.8422 4.03928 9.64556 4.69633 8.47364 4.60938C8.3149 3.46148 8.90562 2.26463 9.58204 1.51562C10.3354 0.671635 11.6066 0.04 12.6572 0Z" />
+</svg>
+                
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', lineHeight: 1.25 }}>
                   <span style={{ fontSize: '13px', color: '#e5e7eb', fontWeight: 500 }}>App Store</span>
                   <span style={{ fontSize: '10.5px', color: '#6b7280', letterSpacing: '0.03em' }}>Coming Soon</span>
@@ -194,9 +213,19 @@ export default function App() {
 
               {/* Google Play */}
               <div className="app-store-btn">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="#e5e7eb">
-                  <path d="M4.2 2.6a1 1 0 0 0-.5.87v17.06a1 1 0 0 0 .5.87l9.87-9.4-9.87-9.4zm11.2 10.24 2.65-2.53 3.55 2.03c.8.46.8 1.6 0 2.06l-3.55 2.03-2.65-2.53zm0-2.68 2.65-2.53-3.55-2.03c-.8-.46-1.83.14-1.83 1.03v0zm-1.4-1.34L5.6 2.1l8.4 6.72zm0 6.16L5.6 21.9l8.4-6.72z" />
-                </svg>
+                <svg fill="#ffffff" height="20px" width="20px" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+  <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+  <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+  <g id="SVGRepo_iconCarrier">
+    <g>
+      <path d="M17,14.5l4.2-4.5L4.9,1.2C4.8,1.1,4.6,1.1,4.3,1L17,14.5z"></path>
+      <path d="M23,21l5.9-3.2c0.7-0.4,1.1-1,1.1-1.8s-0.4-1.5-1.1-1.8L23,11l-4.7,5L23,21z"></path>
+      <path d="M2.4,1.9C2.1,2.2,2,2.6,2,3V29c0,0.4,0.1,0.8,0.4,1.2L15.6,16L2.4,1.9z"></path>
+      <path d="M17,17.5L4.3,31c0.2,0,0.4-0.1,0.6-0.2L21.2,22L17,17.5z"></path>
+    </g>
+  </g>
+</svg>
+
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', lineHeight: 1.25 }}>
                   <span style={{ fontSize: '13px', color: '#e5e7eb', fontWeight: 500 }}>Google Play</span>
                   <span style={{ fontSize: '10.5px', color: '#6b7280', letterSpacing: '0.03em' }}>Coming Soon</span>
@@ -207,7 +236,7 @@ export default function App() {
           </div>
 
           {/* Social Icons */}
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', marginTop: 'clamp(8px, 2vw, 16px)', animation: 'sr-fadeUp 0.9s ease-out both', animationDelay: '1.25s' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', animation: 'sr-fadeUp 0.9s ease-out both', animationDelay: '1.25s' }}>
             <span style={{ fontSize: '11px', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#6b7280' }}>Stay connected</span>
             <div style={{ display: 'flex', gap: '10px' }}>
               <a href="#" aria-label="Instagram" className="social-link">
@@ -231,11 +260,11 @@ export default function App() {
                 </svg>
               </a>
 
-              <a href="#" aria-label="Snapchat" className="social-link">
+              {/* <a href="#" aria-label="Snapchat" className="social-link">
                 <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                   <path d="M12 3.5c2.6 0 4.4 2 4.4 4.6 0 1 0 2.3.15 3.1.25.1.9.35 1.55.15.35-.1.75.15.7.55-.05.55-.6 1.15-1.6 1.7.2.65 1 1.15 2.1 1.35.3.05.4.45.15.65-.4.35-1.05.65-1.7.8.05.25.05.5-.05.7-.25.55-1.15.55-2 .75-.5.1-.85.55-1.35 1.1-.7.75-1.6 1.6-3.35 1.6s-2.65-.85-3.35-1.6c-.5-.55-.85-1-1.35-1.1-.85-.2-1.75-.2-2-.75-.1-.2-.1-.45-.05-.7-.65-.15-1.3-.45-1.7-.8-.25-.2-.15-.6.15-.65 1.1-.2 1.9-.7 2.1-1.35-1-.55-1.55-1.15-1.6-1.7-.05-.4.35-.65.7-.55.65.2 1.3-.05 1.55-.15.15-.8.15-2.1.15-3.1 0-2.6 1.8-4.6 4.4-4.6z" />
                 </svg>
-              </a>
+              </a> */}
             </div>
           </div>
 
